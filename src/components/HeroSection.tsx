@@ -1,7 +1,6 @@
-import React from "react";
-import { ArrowUpRight, Volume2, Sparkles, Clock, TrendingUp, ShieldCheck, Newspaper, Flame } from "lucide-react";
+import React, { useState, useRef } from "react";
+import { ArrowUpRight, Volume2, VolumeX, Sparkles, Clock, TrendingUp, ShieldCheck, Newspaper, Flame, Play, Pause } from "lucide-react";
 import { Article } from "../types";
-import heroBgImage from "../assets/images/hero_luxury_bg_1787600794156.jpg";
 
 interface HeroSectionProps {
   coverArticle: Article;
@@ -10,29 +9,98 @@ interface HeroSectionProps {
   onPlayAudioPreview: (article: Article) => void;
 }
 
+const HERO_VIDEO_URL = "https://kwlri12qqowyib0q.public.blob.vercel-storage.com/Create_video_for_North_Avenue_202608250115.mp4";
+
 export const HeroSection: React.FC<HeroSectionProps> = ({
   coverArticle,
   onReadArticle,
   onExploreSection,
   onPlayAudioPreview,
 }) => {
+  const [isMuted, setIsMuted] = useState<boolean>(true);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      const nextMuteState = !isMuted;
+      videoRef.current.muted = nextMuteState;
+      setIsMuted(nextMuteState);
+      if (!nextMuteState && videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
   return (
     <section id="hero" className="relative pt-24 sm:pt-28 pb-16 sm:pb-24 overflow-hidden">
-      {/* Background Image with Cinematic Gradient Overlays */}
-      <div className="absolute inset-0 pointer-events-none select-none z-0">
-        <img
-          src={heroBgImage}
-          alt="North Avenue Luxury Editorial Atmosphere"
-          className="w-full h-full object-cover object-center opacity-35 scale-105 transform duration-1000"
-          referrerPolicy="no-referrer"
+      {/* Background Video with Cinematic Gradient Overlays */}
+      <div className="absolute inset-0 select-none z-0 overflow-hidden pointer-events-none">
+        <video
+          ref={videoRef}
+          src={HERO_VIDEO_URL}
+          autoPlay
+          loop
+          muted={isMuted}
+          playsInline
+          className="w-full h-full object-cover object-center opacity-40 scale-105 transform duration-1000"
         />
         {/* Layered dark vignetting & brand gold tint */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/85 via-[#0A0A0A]/70 to-[#0A0A0A]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#C5A059]/10 via-transparent to-[#0A0A0A]/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/65 to-[#0A0A0A]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#C5A059]/15 via-transparent to-[#0A0A0A]/95" />
       </div>
 
       {/* Ambient background subtle radial accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-[#C5A059]/8 via-[#C5A059]/12 to-transparent blur-[130px] pointer-events-none z-0" />
+
+      {/* Floating Hero Video Audio & Playback Controls */}
+      <div className="absolute top-28 right-4 sm:right-8 z-30 flex items-center gap-2">
+        <button
+          onClick={toggleMute}
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full glass-panel border transition-all shadow-lg text-xs font-semibold uppercase tracking-wider ${
+            isMuted
+              ? "border-white/10 bg-[#0A0A0A]/85 text-neutral-300 hover:border-[#C5A059]/50 hover:text-[#FDFCF8]"
+              : "border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.35)] animate-pulse"
+          }`}
+          aria-label={isMuted ? "Unmute Hero Video Audio" : "Mute Hero Video Audio"}
+          title={isMuted ? "Click to unmute video sound" : "Click to mute video sound"}
+        >
+          {isMuted ? (
+            <>
+              <VolumeX className="w-4 h-4 text-neutral-400" />
+              <span className="hidden sm:inline">Unmute Audio</span>
+            </>
+          ) : (
+            <>
+              <Volume2 className="w-4 h-4 text-[#C5A059]" />
+              <span className="hidden sm:inline">Audio Playing</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-ping" />
+            </>
+          )}
+        </button>
+
+        <button
+          onClick={togglePlayPause}
+          className="p-2 rounded-full glass-panel border border-white/10 bg-[#0A0A0A]/85 text-neutral-300 hover:text-[#FDFCF8] hover:border-[#C5A059]/50 transition-all shadow-lg"
+          aria-label={isPlaying ? "Pause video background" : "Play video background"}
+          title={isPlaying ? "Pause video" : "Play video"}
+        >
+          {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 text-[#C5A059]" />}
+        </button>
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Brand Statement Banner */}
