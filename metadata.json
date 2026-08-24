@@ -1,0 +1,6 @@
+{
+  "name": "North Avenue Media",
+  "description": "The premier editorial intelligence platform and voice driving beauty's next era in media, global events, industry insights, and innovation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
