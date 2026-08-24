@@ -48,7 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   };
 
   return (
-    <section id="hero" className="relative pt-24 sm:pt-28 pb-16 sm:pb-24 overflow-hidden">
+    <section id="hero" className="relative pt-32 sm:pt-36 lg:pt-40 pb-16 sm:pb-24 overflow-hidden">
       {/* Background Video with Cinematic Gradient Overlays */}
       <div className="absolute inset-0 select-none z-0 overflow-hidden pointer-events-none">
         <video
@@ -68,13 +68,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Ambient background subtle radial accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-[#C5A059]/8 via-[#C5A059]/12 to-transparent blur-[130px] pointer-events-none z-0" />
 
-      {/* Floating Hero Video Audio & Playback Controls */}
-      <div className="absolute top-28 right-4 sm:right-8 z-30 flex items-center gap-2">
+      {/* Floating Hero Video Audio & Playback Controls - Positioned safely below the fixed Navbar */}
+      <div className="absolute top-36 sm:top-40 lg:top-36 right-4 sm:right-8 z-30 flex items-center gap-2">
         <button
           onClick={toggleMute}
-          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full glass-panel border transition-all shadow-lg text-xs font-semibold uppercase tracking-wider ${
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full glass-panel border transition-all shadow-xl backdrop-blur-md text-xs font-semibold uppercase tracking-wider ${
             isMuted
-              ? "border-white/10 bg-[#0A0A0A]/85 text-neutral-300 hover:border-[#C5A059]/50 hover:text-[#FDFCF8]"
+              ? "border-white/15 bg-[#0A0A0A]/90 text-neutral-300 hover:border-[#C5A059]/50 hover:text-[#FDFCF8]"
               : "border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.35)] animate-pulse"
           }`}
           aria-label={isMuted ? "Unmute Hero Video Audio" : "Mute Hero Video Audio"}
@@ -96,7 +96,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
         <button
           onClick={togglePlayPause}
-          className="p-2 rounded-full glass-panel border border-white/10 bg-[#0A0A0A]/85 text-neutral-300 hover:text-[#FDFCF8] hover:border-[#C5A059]/50 transition-all shadow-lg"
+          className="p-2 rounded-full glass-panel border border-white/15 bg-[#0A0A0A]/90 text-neutral-300 hover:text-[#FDFCF8] hover:border-[#C5A059]/50 transition-all shadow-xl backdrop-blur-md"
           aria-label={isPlaying ? "Pause video background" : "Play video background"}
           title={isPlaying ? "Pause video" : "Play video"}
         >
