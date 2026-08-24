@@ -131,7 +131,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 id="hero-subscribe-cta-btn"
               >
                 <Mail className="w-4 h-4 text-black group-hover:rotate-6 transition-transform" />
-                <span>Subscribe Now</span>
+                <span>Subscribe to Beauty Intelligence</span>
                 <span className="px-2 py-0.5 rounded-full bg-black/15 text-[10px] uppercase font-extrabold tracking-widest ml-1">
                   Complimentary
                 </span>
