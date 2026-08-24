@@ -102,12 +102,13 @@ export default function App() {
 
       {/* Main Page Flow */}
       <main className="flex-1">
-        {/* 1. Hero Section with Statement, Cover Story & 3D WebGL Canvas */}
+        {/* 1. Hero Section with Statement, Cover Story & Video Background */}
         <HeroSection
           coverArticle={coverArticle}
           onReadArticle={(art) => setSelectedArticle(art)}
           onExploreSection={handleNavigate}
           onPlayAudioPreview={(art) => setSelectedArticle(art)}
+          onOpenSubscribe={() => setSubscribeOpen(true)}
         />
 
         {/* 2. About Section: Mission, Vision & Global Bureau Footprint */}

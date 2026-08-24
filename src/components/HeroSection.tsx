@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { ArrowUpRight, Volume2, VolumeX, Sparkles, Clock, TrendingUp, ShieldCheck, Newspaper, Flame, Play, Pause } from "lucide-react";
+import { ArrowUpRight, Volume2, VolumeX, Sparkles, Clock, TrendingUp, ShieldCheck, Newspaper, Flame, Play, Pause, Mail, CheckCircle2 } from "lucide-react";
 import { Article } from "../types";
 
 interface HeroSectionProps {
@@ -7,6 +7,7 @@ interface HeroSectionProps {
   onReadArticle: (article: Article) => void;
   onExploreSection: (sectionId: string) => void;
   onPlayAudioPreview: (article: Article) => void;
+  onOpenSubscribe?: () => void;
 }
 
 const HERO_VIDEO_URL = "https://kwlri12qqowyib0q.public.blob.vercel-storage.com/Create_video_for_North_Avenue_202608250115.mp4";
@@ -16,6 +17,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onReadArticle,
   onExploreSection,
   onPlayAudioPreview,
+  onOpenSubscribe,
 }) => {
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
@@ -120,8 +122,39 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             Where luxury culture, biotechnology breakthroughs, and high-level market intelligence converge to shape the future of aesthetic discourse.
           </p>
 
+          {/* Hero Action CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-9">
+            {onOpenSubscribe && (
+              <button
+                onClick={onOpenSubscribe}
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-[#C5A059] via-[#DFC17B] to-[#B38D46] text-black font-bold uppercase tracking-wider text-xs sm:text-sm hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_30px_rgba(197,160,89,0.35)] flex items-center justify-center gap-2.5 group"
+                id="hero-subscribe-cta-btn"
+              >
+                <Mail className="w-4 h-4 text-black group-hover:rotate-6 transition-transform" />
+                <span>Subscribe Now</span>
+                <span className="px-2 py-0.5 rounded-full bg-black/15 text-[10px] uppercase font-extrabold tracking-widest ml-1">
+                  Complimentary
+                </span>
+              </button>
+            )}
+
+            <button
+              onClick={() => onExploreSection("editorial")}
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#141414]/90 hover:bg-[#1C1C1C] border border-[#C5A059]/40 hover:border-[#C5A059] text-[#FDFCF8] text-xs sm:text-sm font-semibold uppercase tracking-wider transition-all flex items-center justify-center gap-2 group"
+              id="hero-explore-stories-btn"
+            >
+              <span>Explore Editorial Stories</span>
+              <ArrowUpRight className="w-4 h-4 text-[#C5A059] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+          </div>
+
+          <p className="text-[11px] sm:text-xs text-neutral-400 mt-4 flex items-center justify-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
+            <span>Delivered weekly to 48,000+ luxury beauty executives, founders & creative directors.</span>
+          </p>
+
           {/* Quick Pillar Jump Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-6">
             {[
               { label: "Haute Formulations", id: "editorial" },
               { label: "Global Summits", id: "events" },
@@ -294,6 +327,31 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Quick Dispatch Subscription Box */}
+            {onOpenSubscribe && (
+              <div className="glass-panel rounded-xl p-4 border border-[#C5A059]/30 bg-gradient-to-r from-[#141414] via-[#1A1813] to-[#141414] flex items-center justify-between gap-3 shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#C5A059]/20 border border-[#C5A059]/50 flex items-center justify-center text-[#C5A059] shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h5 className="font-serif-luxury text-xs sm:text-sm text-[#FDFCF8] font-semibold">
+                      The Editorial Dispatch
+                    </h5>
+                    <p className="text-[11px] text-neutral-400">Weekly executive briefing directly in your inbox.</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={onOpenSubscribe}
+                  className="px-3.5 py-1.5 rounded-lg bg-[#C5A059] text-black font-bold uppercase text-[11px] tracking-wider hover:bg-[#DFC17B] transition-all whitespace-nowrap shadow-md"
+                  id="hero-right-col-subscribe-btn"
+                >
+                  Join Free
+                </button>
+              </div>
+            )}
 
             {/* Real-time Global Intelligence Counter */}
             <div className="glass-panel rounded-xl p-5 border border-[#C5A059]/15 grid grid-cols-3 gap-3 text-center">
