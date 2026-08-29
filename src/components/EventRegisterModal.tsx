@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X, Calendar, MapPin, Sparkles, CheckCircle2, ShieldCheck, Send } from "lucide-react";
+import { X, Calendar, MapPin, CheckCircle2, ShieldCheck, Send } from "lucide-react";
 import { GlobalEvent } from "../types";
 import confetti from "canvas-confetti";
 
@@ -41,7 +41,7 @@ export const EventRegisterModal: React.FC<EventRegisterModalProps> = ({ event, o
         particleCount: 50,
         spread: 60,
         origin: { y: 0.7 },
-        colors: ["#d4af37", "#c5a880", "#fbf9f5"],
+        colors: ["#000000", "#333333", "#C5A059"],
       });
     } catch (err) {
       console.error(err);
@@ -52,138 +52,147 @@ export const EventRegisterModal: React.FC<EventRegisterModalProps> = ({ event, o
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 animate-in fade-in duration-150 font-sans">
-      <div className="relative w-full max-w-lg glass-panel rounded-2xl p-6 sm:p-8 border border-[#C5A059]/40 shadow-2xl bg-[#0A0A0A]">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-150 font-sans">
+      <div className="relative w-full max-w-lg bg-white border border-neutral-300 p-6 sm:p-8 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white"
+          className="absolute top-4 right-4 p-1.5 bg-neutral-100 hover:bg-black hover:text-white transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {submitted ? (
           <div className="text-center py-8 space-y-4">
-            <div className="w-14 h-14 rounded-full bg-[#C5A059]/20 border border-[#C5A059] text-[#C5A059] mx-auto flex items-center justify-center">
-              <CheckCircle2 className="w-7 h-7" />
+            <div className="w-12 h-12 bg-neutral-100 text-black mx-auto flex items-center justify-center">
+              <CheckCircle2 className="w-6 h-6" />
             </div>
-            <h3 className="font-serif-luxury text-2xl text-[#FDFCF8]">Accreditation Dossier Received</h3>
-            <p className="text-neutral-300 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">
-              Your delegate credentials request for <strong>{event.title}</strong> has been assigned to our Event Secretariat. Official confirmation will be delivered to <strong>{email}</strong>.
+            <h3 className="font-serif-luxury text-2xl font-bold text-black">
+              Accreditation Requested
+            </h3>
+            <p className="text-neutral-600 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed font-sans">
+              Thank you, {name}. Your delegate application for <strong>{event.title}</strong> has been received. Our summit protocol committee will review your dossier.
             </p>
             <button
               onClick={onClose}
-              className="mt-4 px-6 py-2.5 rounded-xl bg-[#C5A059] text-black text-xs font-bold uppercase tracking-wider"
+              className="px-6 py-2.5 bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800"
             >
               Close
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded bg-[#C5A059]/15 text-[#C5A059] text-[10px] font-bold uppercase tracking-widest">
-                {event.category} REGISTRATION
-              </span>
-            </div>
-
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <h3 className="font-serif-luxury text-2xl text-[#FDFCF8] leading-snug">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-neutral-500 font-sans">
+                SUMMIT REGISTRATION
+              </span>
+              <h3 className="font-serif-luxury text-2xl font-bold text-black mt-1">
                 {event.title}
               </h3>
-              <div className="flex items-center gap-3 text-xs text-[#C5A059] mt-1.5">
+              <div className="flex items-center gap-4 text-xs text-neutral-600 mt-2 font-sans">
                 <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
+                  <Calendar className="w-3.5 h-3.5 text-black" />
                   {event.dates}
                 </span>
-                <span>•</span>
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5" />
+                  <MapPin className="w-3.5 h-3.5 text-black" />
                   {event.city}, {event.country}
                 </span>
               </div>
             </div>
 
-            {/* Pass Type Selector */}
-            <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                Requested Pass Type
-              </label>
-              <div className="grid grid-cols-3 gap-2 text-xs">
-                {(["Executive VIP", "Press Accreditation", "Speaker Candidate"] as const).map((type) => (
-                  <button
-                    type="button"
-                    key={type}
-                    onClick={() => setPassType(type)}
-                    className={`py-2 px-2 rounded-lg border text-center transition-all text-[11px] ${
-                      passType === type
-                        ? "bg-[#C5A059] text-black font-bold border-[#C5A059]"
-                        : "bg-[#121212] text-neutral-400 border-white/5"
-                    }`}
-                  >
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-neutral-400 mb-1">Full Name *</label>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1 font-sans">
+                  Full Name *
+                </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Charlotte Dubois"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#121212] border border-white/10 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
+                  placeholder="e.g. Julian Ross"
+                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
                 />
               </div>
-
               <div>
-                <label className="block text-xs font-medium text-neutral-400 mb-1">Corporate Email *</label>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1 font-sans">
+                  Corporate Email *
+                </label>
                 <input
                   type="email"
                   required
-                  placeholder="c.dubois@house.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#121212] border border-white/10 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
+                  placeholder="j.ross@hautebeauty.com"
+                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-neutral-400 mb-1">Organization / Brand</label>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1 font-sans">
+                  Organization / House
+                </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Dior / Kering / Shiseido"
                   value={organization}
                   onChange={(e) => setOrganization(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#121212] border border-white/10 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
+                  placeholder="e.g. LVMH Beauty"
+                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
                 />
               </div>
-
               <div>
-                <label className="block text-xs font-medium text-neutral-400 mb-1">Executive Title</label>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1 font-sans">
+                  Title / Position
+                </label>
                 <input
                   type="text"
-                  placeholder="e.g. VP Brand Strategy"
+                  required
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl bg-[#121212] border border-white/10 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
+                  placeholder="Chief Brand Officer"
+                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
                 />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                Pass Classification
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {(["Executive VIP", "Press Accreditation", "Speaker Candidate"] as const).map((p) => (
+                  <button
+                    type="button"
+                    key={p}
+                    onClick={() => setPassType(p)}
+                    className={`py-2 px-2 text-[10px] font-bold uppercase tracking-wider border transition-all text-center ${
+                      passType === p
+                        ? "bg-black text-white border-black"
+                        : "bg-white text-neutral-700 border-neutral-300 hover:border-black"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
               </div>
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#DFC17B] to-[#B38D46] text-black font-bold uppercase tracking-wider text-xs hover:opacity-95 transition-all shadow-[0_0_20px_rgba(197,160,89,0.25)] flex items-center justify-center gap-2"
+              className="w-full py-3 bg-black text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
             >
-              <Send className="w-4 h-4" />
-              <span>{submitting ? "Transmitting..." : "Submit Accreditation Request"}</span>
+              <Send className="w-3.5 h-3.5" />
+              <span>{submitting ? "Submitting Application..." : "Request Accreditation"}</span>
             </button>
+
+            <div className="flex items-center justify-center gap-1.5 text-[10px] text-neutral-500 font-sans">
+              <ShieldCheck className="w-3 h-3" />
+              <span>Accreditation is subject to confirmation by North Avenue Media.</span>
+            </div>
           </form>
         )}
       </div>

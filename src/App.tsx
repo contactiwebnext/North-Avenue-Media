@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
+import { TheLatestSection } from "./components/TheLatestSection";
+import { FeaturedPanelsSection } from "./components/FeaturedPanelsSection";
 import { AboutSection } from "./components/AboutSection";
 import { EditorialHub } from "./components/EditorialHub";
 import { GlobalEventsSection } from "./components/GlobalEventsSection";
@@ -11,6 +13,7 @@ import { ContactSection } from "./components/ContactSection";
 import { Footer } from "./components/Footer";
 import { AIChatbot } from "./components/AIChatbot";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { ScrollProgress } from "./components/ScrollProgress";
 import { ArticleModal } from "./components/ArticleModal";
 import { BookmarksDrawer } from "./components/BookmarksDrawer";
 import { SearchModal } from "./components/SearchModal";
@@ -45,9 +48,23 @@ export default function App() {
     }
   }, [bookmarkedIds]);
 
-  // Scroll observer to update active section in Navbar
+  // Check URL query parameters for direct article link
   useEffect(() => {
-    const sectionIds = ["hero", "about", "editorial", "events", "insights", "innovation", "contact"];
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const articleId = params.get("article");
+      if (articleId) {
+        const found = ARTICLES_DATA.find((a) => a.id === articleId);
+        if (found) {
+          setSelectedArticle(found);
+        }
+      }
+    } catch {
+      // Ignored
+    }
+  }, []);
+  useEffect(() => {
+    const sectionIds = ["hero", "latest", "about", "editorial", "events", "insights", "innovation", "contact"];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200;
       for (const id of sectionIds) {
@@ -89,8 +106,11 @@ export default function App() {
   const coverArticle = ARTICLES_DATA.find((a) => a.isCoverStory) || ARTICLES_DATA[0];
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#FDFCF8] selection:bg-[#C5A059]/30 selection:text-[#FDFCF8] flex flex-col justify-between font-sans">
-      {/* Top Fixed Navigation */}
+    <div className="min-h-screen bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white flex flex-col justify-between font-sans relative">
+      {/* Scroll Progress Bar at the absolute top of the viewport */}
+      <ScrollProgress />
+
+      {/* Top Fixed Navigation: White Background, Black North Avenue Media Branding */}
       <Navbar
         activeSection={activeSection}
         onNavigate={handleNavigate}
@@ -100,9 +120,9 @@ export default function App() {
         bookmarksCount={bookmarkedIds.length}
       />
 
-      {/* Main Page Flow */}
+      {/* Main Page Flow Matching Layout.jpeg */}
       <main className="flex-1">
-        {/* 1. Hero Section with Statement, Cover Story & Video Background */}
+        {/* 1. Hero Section: Split 2-Column with Pure White Canvas & Luxury Serif Headline */}
         <HeroSection
           coverArticle={coverArticle}
           onReadArticle={(art) => setSelectedArticle(art)}
@@ -111,10 +131,24 @@ export default function App() {
           onOpenSubscribe={() => setSubscribeOpen(true)}
         />
 
-        {/* 2. About Section: Mission, Vision & Global Bureau Footprint */}
+        {/* 2. THE LATEST Section (3-Column Editorial Cards matching Layout.jpeg) */}
+        <TheLatestSection
+          onReadArticle={(art) => setSelectedArticle(art)}
+          onViewAllEditorial={() => handleNavigate("editorial")}
+          onExploreReports={() => handleNavigate("insights")}
+        />
+
+        {/* 3. Featured 3-Panel Editorial Grid (State of Beauty, North Avenue Week, Global Events) */}
+        <FeaturedPanelsSection
+          onExploreReport={() => handleNavigate("insights")}
+          onExploreWeek={() => handleNavigate("editorial")}
+          onViewEvents={() => handleNavigate("events")}
+        />
+
+        {/* 4. About Section: Mission & Global Bureau Footprint */}
         <AboutSection />
 
-        {/* 3. Editorial Hub: Magazine-Style Stories & Category Filters */}
+        {/* 5. Editorial Hub: Categorized Archive & In-Depth Search */}
         <EditorialHub
           articles={ARTICLES_DATA}
           onReadArticle={(art) => setSelectedArticle(art)}
@@ -122,13 +156,13 @@ export default function App() {
           bookmarkedIds={bookmarkedIds}
         />
 
-        {/* 4. Global Events: Paris, Milan, New York, Seoul, Dubai, Tokyo */}
+        {/* 6. Global Events: Summits & Conclaves in Paris, New York, Milan, Tokyo */}
         <GlobalEventsSection
           events={GLOBAL_EVENTS_DATA}
           onRegisterEvent={(evt) => setSelectedEvent(evt)}
         />
 
-        {/* 5. Industry Insights & Market Intelligence Index */}
+        {/* 7. Industry Insights & Market Intelligence Index */}
         <IndustryInsightsSection
           reports={INSIGHTS_DATA}
           onDownloadReport={(rep) => {
@@ -136,7 +170,7 @@ export default function App() {
           }}
         />
 
-        {/* 6. Innovation & Future Technologies */}
+        {/* 8. Innovation & Future Tech */}
         <InnovationSection
           innovations={INNOVATIONS_DATA}
           onSelectInnovation={(item) => {
@@ -145,14 +179,14 @@ export default function App() {
           }}
         />
 
-        {/* 7. Media Gallery & Runway Cinema */}
+        {/* 9. Media Gallery & Runway Cinema */}
         <MediaGallerySection />
 
-        {/* 8. Contact & Inquiries Bureau */}
+        {/* 10. Contact & Partnership Bureau */}
         <ContactSection />
       </main>
 
-      {/* Footer with required iWebNext attribution */}
+      {/* Footer matching Layout.jpeg with 3 columns, newsletter form, social links, and iWebNext attribution */}
       <Footer
         onNavigate={handleNavigate}
         onOpenSubscribe={() => setSubscribeOpen(true)}

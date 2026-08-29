@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Search, X, ArrowUpRight, Calendar, Sparkles, FileText } from "lucide-react";
+import { Search, X, ArrowRight, Calendar } from "lucide-react";
 import { Article, GlobalEvent, InsightReport } from "../types";
 
 interface SearchModalProps {
@@ -50,56 +50,48 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   );
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-start justify-center p-4 sm:p-8 pt-20 animate-in fade-in duration-150 font-sans">
-      <div className="w-full max-w-2xl bg-[#0A0A0A] border border-[#C5A059]/40 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-start justify-center p-4 sm:p-8 pt-20 animate-in fade-in duration-150 font-sans">
+      <div className="w-full max-w-2xl bg-white border border-neutral-300 shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
         {/* Search Input Bar */}
-        <div className="p-4 sm:p-5 border-b border-white/10 flex items-center gap-3 bg-[#121212]">
-          <Search className="w-5 h-5 text-[#C5A059] shrink-0" />
+        <div className="p-4 sm:p-5 border-b border-neutral-200 flex items-center gap-3 bg-neutral-50">
+          <Search className="w-5 h-5 text-neutral-500 shrink-0" />
           <input
             type="text"
             autoFocus
-            placeholder="Type keywords, topics, summits, or authors..."
+            placeholder="Search dossiers, reports, summits, or keywords..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent text-sm sm:text-base text-[#FDFCF8] placeholder:text-neutral-500 focus:outline-none"
+            className="w-full bg-transparent text-sm text-black placeholder:text-neutral-500 focus:outline-none font-sans"
           />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              className="text-xs text-neutral-400 hover:text-white"
-            >
-              Clear
-            </button>
-          )}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white ml-1"
+            className="p-1.5 bg-neutral-200 hover:bg-black hover:text-white transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Results Container */}
-        <div className="overflow-y-auto p-4 sm:p-6 space-y-6 text-xs">
+        <div className="overflow-y-auto p-4 sm:p-6 space-y-6 divide-y divide-neutral-200">
           {/* Quick Keywords */}
           {!query && (
             <div className="space-y-3">
-              <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-bold">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 block">
                 Trending Inquiries
               </span>
               <div className="flex flex-wrap gap-2">
                 {[
-                  "Biotech Longevity",
-                  "Paris Summit",
-                  "Neuro-Fragrance",
-                  "Zero-Trace Packaging",
-                  "Private Equity M&A",
-                  "Milan Conclave",
-                ].map((term, idx) => (
+                  "State of Beauty Report",
+                  "Haute Couture Paris",
+                  "Biotechnology",
+                  "Private Equity Beauty",
+                  "Seoul Bio-Aesthetics",
+                  "Milan Design Atelier",
+                ].map((term) => (
                   <button
-                    key={idx}
+                    key={term}
                     onClick={() => setQuery(term)}
-                    className="px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-[#C5A059]/20 border border-white/10 hover:border-[#C5A059]/40 text-neutral-300 transition-all"
+                    className="px-3 py-1.5 bg-neutral-100 hover:bg-black hover:text-white text-xs text-neutral-700 transition-colors font-medium"
                   >
                     {term}
                   </button>
@@ -108,62 +100,63 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             </div>
           )}
 
-          {/* Matched Stories */}
+          {/* Matched Articles */}
           {matchedArticles.length > 0 && (
-            <div className="space-y-3">
-              <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-bold flex items-center gap-1.5">
-                <FileText className="w-3.5 h-3.5" />
-                Editorial Stories ({matchedArticles.length})
+            <div className="space-y-3 pt-4">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-black block">
+                Editorial Dossiers ({matchedArticles.length})
               </span>
               <div className="space-y-2">
-                {matchedArticles.map((art) => (
+                {matchedArticles.slice(0, 4).map((art) => (
                   <div
                     key={art.id}
                     onClick={() => {
                       onSelectArticle(art);
                       onClose();
                     }}
-                    className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[#C5A059]/40 hover:bg-white/[0.04] cursor-pointer transition-all flex items-center justify-between group"
+                    className="p-3 bg-white border border-neutral-200 hover:border-black cursor-pointer transition-colors flex items-center justify-between gap-3 group"
                   >
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-[#C5A059]">{art.category}</span>
-                      <h4 className="font-serif-luxury text-sm text-[#FDFCF8] group-hover:text-[#C5A059] transition-colors leading-snug">
+                      <span className="text-[10px] font-bold uppercase text-black">
+                        {art.category}
+                      </span>
+                      <h4 className="font-serif-luxury text-sm font-bold text-black group-hover:opacity-80 transition-opacity">
                         {art.title}
                       </h4>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#C5A059] shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform shrink-0" />
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Matched Global Events */}
+          {/* Matched Events */}
           {matchedEvents.length > 0 && (
-            <div className="space-y-3">
-              <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-bold flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5" />
-                Global Events & Summits ({matchedEvents.length})
+            <div className="space-y-3 pt-4">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-black block">
+                Global Summits ({matchedEvents.length})
               </span>
               <div className="space-y-2">
-                {matchedEvents.map((evt) => (
+                {matchedEvents.slice(0, 3).map((evt) => (
                   <div
                     key={evt.id}
                     onClick={() => {
                       onSelectEvent(evt);
                       onClose();
                     }}
-                    className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[#C5A059]/40 hover:bg-white/[0.04] cursor-pointer transition-all flex items-center justify-between group"
+                    className="p-3 bg-white border border-neutral-200 hover:border-black cursor-pointer transition-colors flex items-center justify-between gap-3 group"
                   >
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-neutral-400">
-                        {evt.city} • {evt.dates}
-                      </span>
-                      <h4 className="font-serif-luxury text-sm text-[#FDFCF8] group-hover:text-[#C5A059] transition-colors leading-snug">
+                      <div className="flex items-center gap-2 text-xs text-neutral-500">
+                        <Calendar className="w-3 h-3 text-black" />
+                        <span>{evt.dates} &bull; {evt.city}</span>
+                      </div>
+                      <h4 className="font-serif-luxury text-sm font-bold text-black group-hover:opacity-80 transition-opacity">
                         {evt.title}
                       </h4>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-[#C5A059] shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform shrink-0" />
                   </div>
                 ))}
               </div>
@@ -171,9 +164,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           )}
 
           {query && matchedArticles.length === 0 && matchedEvents.length === 0 && (
-            <div className="text-center py-10 text-neutral-400">
-              <p>No results found for "{query}".</p>
-              <p className="text-neutral-500 text-[11px] mt-1">Try another keyword or browse our editorial categories.</p>
+            <div className="text-center py-8 text-neutral-500 text-xs">
+              No intelligence dossiers found matching &ldquo;{query}&rdquo;.
             </div>
           )}
         </div>

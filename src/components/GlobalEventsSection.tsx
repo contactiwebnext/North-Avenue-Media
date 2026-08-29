@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Calendar, MapPin, Users, ArrowUpRight, Sparkles, Check, Globe } from "lucide-react";
+import { Calendar, MapPin, Users, ArrowRight } from "lucide-react";
 import { GlobalEvent } from "../types";
 
 interface GlobalEventsSectionProps {
@@ -18,30 +18,30 @@ export const GlobalEventsSection: React.FC<GlobalEventsSectionProps> = ({ events
   const regions = ["All", "Europe", "Americas", "Asia-Pacific", "Middle East"];
 
   return (
-    <section id="events" className="py-20 sm:py-28 relative border-t border-white/5 bg-[#0A0A0A]">
+    <section id="events" className="py-20 sm:py-24 relative border-t border-neutral-200 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6 pb-6 border-b border-neutral-200">
           <div>
-            <div className="flex items-center gap-2 mb-3 text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em]">
-              <span className="w-6 h-[1px] bg-[#C5A059]" />
-              <span>GLOBAL SUMMITS & CONCLAVES</span>
+            <div className="flex items-center gap-2 mb-3 text-black text-xs font-bold uppercase tracking-[0.25em]">
+              <span className="w-6 h-[1.5px] bg-black" />
+              <span>GLOBAL SUMMITS &amp; EXPERIENCES</span>
             </div>
-            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-[#FDFCF8] font-normal">
+            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-black font-bold">
               Worldwide Event Calendar
             </h2>
           </div>
 
           {/* Region Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
             {regions.map((reg) => (
               <button
                 key={reg}
                 onClick={() => setSelectedRegion(reg)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider transition-all whitespace-nowrap ${
+                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
                   selectedRegion === reg
-                    ? "bg-[#C5A059] text-black font-bold shadow-[0_0_15px_rgba(197,160,89,0.3)]"
-                    : "bg-[#141414] text-neutral-400 hover:text-white border border-white/5"
+                    ? "bg-black text-white"
+                    : "bg-neutral-100 text-neutral-700 hover:text-black hover:bg-neutral-200"
                 }`}
               >
                 {reg}
@@ -55,79 +55,72 @@ export const GlobalEventsSection: React.FC<GlobalEventsSectionProps> = ({ events
           {filteredEvents.map((evt) => (
             <div
               key={evt.id}
-              className="glass-panel rounded-2xl overflow-hidden border border-[#C5A059]/20 hover:border-[#C5A059]/50 transition-all flex flex-col justify-between group"
+              className="border border-neutral-200 bg-white hover:border-black transition-all flex flex-col justify-between group shadow-sm hover:shadow-md"
             >
               <div>
                 {/* Event Hero image */}
-                <div className="relative aspect-[16/10] overflow-hidden img-zoom-container">
+                <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
                   <img
                     src={evt.heroImage}
                     alt={evt.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Badges */}
-                  <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-[#C5A059] text-black text-[10px] font-bold uppercase tracking-widest">
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <span className="px-2.5 py-1 bg-black text-white text-[10px] font-bold uppercase tracking-widest">
                       {evt.category}
                     </span>
-                    <span className="px-2 py-1 rounded bg-black/75 backdrop-blur-md text-[#FDFCF8] text-[10px] uppercase tracking-wider border border-white/10 font-sans">
+                    <span className="px-2 py-1 bg-white/90 text-black text-[10px] uppercase font-bold tracking-wider font-sans">
                       {evt.city}, {evt.country}
                     </span>
                   </div>
                 </div>
 
                 {/* Event Details */}
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-xs text-[#C5A059] font-semibold mb-2 font-sans">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>{evt.dates}</span>
+                <div className="p-6 space-y-3">
+                  <div className="flex items-center gap-4 text-xs text-neutral-500 font-sans">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-black" />
+                      {evt.dates}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-black" />
+                      {evt.city}, {evt.country}
+                    </span>
                   </div>
 
-                  <h3 className="font-serif-luxury text-2xl text-[#FDFCF8] group-hover:text-[#C5A059] transition-colors leading-snug mb-3">
+                  <h3 className="font-serif-luxury text-xl font-bold text-black group-hover:opacity-80 transition-opacity leading-snug">
                     {evt.title}
                   </h3>
 
-                  <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3 font-sans">
+                  <p className="text-xs sm:text-sm text-neutral-600 font-sans leading-relaxed line-clamp-3">
                     {evt.description}
                   </p>
 
-                  <div className="space-y-2 pt-2 border-t border-white/5 text-xs text-neutral-400 font-sans">
-                    <div className="flex items-start gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-[#C5A059] mt-0.5 shrink-0" />
-                      <span className="truncate">{evt.venue}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Users className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
-                      <span>{evt.expectedAttendees} • {evt.speakersCount} Keynote Leaders</span>
-                    </div>
-                  </div>
-
-                  {/* Key Topics Pills */}
-                  <div className="flex flex-wrap gap-1.5 mt-4 font-sans">
-                    {evt.keyTopics.map((topic, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="px-2 py-0.5 rounded bg-white/[0.04] text-[10px] text-neutral-300 border border-white/5"
-                      >
-                        {topic}
-                      </span>
-                    ))}
+                  <div className="pt-2 flex items-center justify-between text-xs text-neutral-500 border-t border-neutral-100 font-sans">
+                    <span className="flex items-center gap-1">
+                      <Users className="w-3.5 h-3.5" />
+                      {evt.expectedAttendees}
+                    </span>
+                    <span className="font-bold text-black uppercase tracking-wider text-[11px]">
+                      {evt.isFeatured ? "Registrations Open" : "Waitlist Available"}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Event RSVP / Registration Button */}
+              {/* Action */}
               <div className="p-6 pt-0">
                 <button
                   onClick={() => onRegisterEvent(evt)}
-                  className="w-full py-2.5 rounded-xl bg-[#141414] hover:bg-[#C5A059] hover:text-black border border-[#C5A059]/30 text-xs font-bold uppercase tracking-wider text-[#FDFCF8] transition-all flex items-center justify-center gap-2 group-hover:shadow-[0_0_20px_rgba(197,160,89,0.25)] font-sans"
+                  className="w-full py-3 bg-black text-white text-xs font-bold uppercase tracking-[0.15em] hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>Request VIP Delegate Access</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <span>Request Invitation</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>

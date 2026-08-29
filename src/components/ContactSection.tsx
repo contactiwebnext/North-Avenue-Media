@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, Send, CheckCircle2, MessageSquare, Sparkles, Building2, Globe, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Send, CheckCircle2, MessageSquare, Building2, Globe, Clock } from "lucide-react";
 import { InquiryFormData } from "../types";
 import confetti from "canvas-confetti";
 
@@ -40,7 +40,7 @@ export const ContactSection: React.FC = () => {
         particleCount: 50,
         spread: 60,
         origin: { y: 0.8 },
-        colors: ["#d4af37", "#c5a880", "#f4efe6"],
+        colors: ["#000000", "#333333", "#C5A059"],
       });
     } catch (err) {
       console.error(err);
@@ -51,105 +51,46 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 relative border-t border-white/5 bg-[#0A0A0A]">
+    <section id="contact" className="py-20 sm:py-24 relative border-t border-neutral-200 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 pb-6 border-b border-neutral-200">
           <div>
-            <div className="flex items-center gap-2 mb-3 text-[#C5A059] text-xs font-bold uppercase tracking-[0.25em]">
-              <span className="w-6 h-[1px] bg-[#C5A059]" />
-              <span>EDITORIAL BUREAU & EXECUTIVE DESK</span>
+            <div className="flex items-center gap-2 mb-3 text-black text-xs font-bold uppercase tracking-[0.25em]">
+              <span className="w-6 h-[1.5px] bg-black" />
+              <span>EDITORIAL BUREAU &amp; EXECUTIVE DESK</span>
             </div>
-            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-[#FDFCF8] font-normal">
+            <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl text-black font-bold">
               Connect With North Avenue Media
             </h2>
           </div>
-          <p className="text-xs text-neutral-400 max-w-sm font-sans">
-            For editorial pitches, global summit accreditations, executive briefings, and advertising syndications.
+          <p className="text-xs text-neutral-600 max-w-sm font-sans leading-relaxed">
+            For editorial pitches, global summit accreditations, executive briefings, and partnership syndications.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left / Contact Information & Direct Channels */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="glass-panel rounded-2xl p-6 sm:p-8 border border-[#C5A059]/20 space-y-6">
-              <h3 className="font-serif-luxury text-2xl text-[#FDFCF8]">Direct Bureau Channels</h3>
-              
-              <div className="space-y-4">
-                {/* Phone */}
-                <a
-                  href="tel:+12028768594"
-                  className="flex items-center gap-4 p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[#C5A059]/40 transition-all group font-sans"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059] group-hover:scale-110 transition-transform">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block">
-                      Direct Telephone Line
-                    </span>
-                    <span className="font-serif-luxury text-lg text-[#FDFCF8] group-hover:text-[#C5A059] transition-colors">
-                      +1 202-876-8594
-                    </span>
-                  </div>
-                </a>
+        {/* Form and Contact Information Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Left Column: Direct Inquiries Form */}
+          <div className="lg:col-span-7 border border-neutral-200 bg-neutral-50 p-6 sm:p-8">
+            <h3 className="font-serif-luxury text-xl font-bold text-black mb-6 flex items-center gap-2">
+              <MessageSquare className="w-5 h-5" />
+              Send Executive Inquiry
+            </h3>
 
-                {/* Email */}
-                <a
-                  href="mailto:thenorthavenuemedia@gmail.com"
-                  className="flex items-center gap-4 p-3.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[#C5A059]/40 transition-all group font-sans"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-[#C5A059]/10 border border-[#C5A059]/30 flex items-center justify-center text-[#C5A059] group-hover:scale-110 transition-transform">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block">
-                      Editorial & Bureau Email
-                    </span>
-                    <span className="font-sans text-sm font-semibold text-[#FDFCF8] group-hover:text-[#C5A059] transition-colors break-all">
-                      thenorthavenuemedia@gmail.com
-                    </span>
-                  </div>
-                </a>
-              </div>
-
-              {/* Response Time SLA */}
-              <div className="pt-4 border-t border-white/10 flex items-center gap-3 text-xs text-neutral-400 font-sans">
-                <Clock className="w-4 h-4 text-[#C5A059]" />
-                <span>Executive Bureau response time: Under 24 Business Hours</span>
-              </div>
-            </div>
-
-            {/* Global Press Kit Download box */}
-            <div className="glass-panel rounded-2xl p-6 border border-[#C5A059]/20 flex items-center justify-between">
-              <div>
-                <h4 className="font-serif-luxury text-lg text-[#FDFCF8]">Editorial Pitch Guidelines 2026</h4>
-                <p className="text-xs text-neutral-400 mt-0.5 font-sans">Format guidelines for science & op-ed submissions.</p>
-              </div>
-              <a
-                href="mailto:thenorthavenuemedia@gmail.com?subject=Editorial%20Pitch%20Submission"
-                className="px-3.5 py-2 rounded-lg bg-[#141414] hover:bg-[#C5A059] hover:text-black border border-[#C5A059]/30 text-xs font-bold uppercase tracking-wider text-[#E5D7BF] transition-all whitespace-nowrap font-sans"
-              >
-                Submit Pitch
-              </a>
-            </div>
-          </div>
-
-          {/* Right / Interactive Categorized Inquiry Form */}
-          <div className="lg:col-span-7 glass-panel rounded-2xl p-6 sm:p-10 border border-[#C5A059]/30">
             {submittedRef ? (
-              <div className="text-center py-12 space-y-4 font-sans">
-                <div className="w-16 h-16 rounded-full bg-[#C5A059]/20 border border-[#C5A059] text-[#C5A059] mx-auto flex items-center justify-center mb-4">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h3 className="font-serif-luxury text-3xl text-[#FDFCF8]">Inquiry Received</h3>
-                <p className="text-neutral-300 text-sm max-w-md mx-auto leading-relaxed">
-                  Thank you. Your dossier has been routed to our Senior Editorial Director & Partnership Bureau.
+              <div className="p-8 bg-white border border-neutral-200 text-center space-y-4">
+                <CheckCircle2 className="w-12 h-12 text-black mx-auto" />
+                <h4 className="font-serif-luxury text-2xl font-bold text-black">
+                  Inquiry Dispatched
+                </h4>
+                <p className="text-xs text-neutral-600 font-sans max-w-md mx-auto leading-relaxed">
+                  Thank you for reaching out to North Avenue Media. Your dossier has been routed to our global executive desk under reference:
                 </p>
-                <div className="inline-block px-4 py-1.5 rounded-full bg-black/70 border border-[#C5A059]/40 text-xs font-mono text-[#C5A059]">
-                  Tracking Ref: {submittedRef}
+                <div className="font-mono text-sm font-bold bg-neutral-100 py-2 px-4 inline-block border border-neutral-300">
+                  {submittedRef}
                 </div>
-                <div className="pt-6">
+                <div className="pt-4">
                   <button
                     onClick={() => {
                       setSubmittedRef(null);
@@ -162,17 +103,73 @@ export const ContactSection: React.FC = () => {
                         message: "",
                       });
                     }}
-                    className="px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold uppercase tracking-wider text-white"
+                    className="px-6 py-2.5 bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800"
                   >
                     Submit Another Inquiry
                   </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 font-sans">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="e.g. Evelyn Vance"
+                      className="w-full px-3.5 py-2.5 bg-white border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                      Corporate Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="evelyn@maisonluxe.com"
+                      className="w-full px-3.5 py-2.5 bg-white border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                      Organization / Brand
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      placeholder="Maison Luxe Group"
+                      className="w-full px-3.5 py-2.5 bg-white border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                      Direct Telephone Line
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+1 (202) 876-8594"
+                      className="w-full px-3.5 py-2.5 bg-white border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans"
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-widest text-[#C5A059] mb-2.5">
-                    Select Inquiry Category
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                    Inquiry Classification *
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {categories.map((cat) => (
@@ -180,10 +177,10 @@ export const ContactSection: React.FC = () => {
                         type="button"
                         key={cat}
                         onClick={() => setFormData({ ...formData, category: cat })}
-                        className={`px-3 py-2 rounded-xl text-xs font-medium transition-all text-center border ${
+                        className={`py-2 px-3 text-xs font-bold uppercase tracking-wider border transition-all text-center ${
                           formData.category === cat
-                            ? "bg-[#C5A059] text-black font-bold border-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.3)]"
-                            : "bg-[#141414] text-neutral-400 hover:text-white border-white/5"
+                            ? "bg-black text-white border-black"
+                            : "bg-white text-neutral-700 border-neutral-300 hover:border-black"
                         }`}
                       >
                         {cat}
@@ -192,88 +189,86 @@ export const ContactSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-neutral-400 mb-1.5">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Julian Montgomery"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#141414] border border-[#C5A059]/20 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-neutral-400 mb-1.5">
-                      Official Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. j.montgomery@maison.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#141414] border border-[#C5A059]/20 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-neutral-400 mb-1.5">
-                      Company / Organization / Publication
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. LVMH / Estée Lauder / Vogue Paris"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#141414] border border-[#C5A059]/20 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-neutral-400 mb-1.5">
-                      Phone Number (Optional)
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="+1 (555) 000-0000"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#141414] border border-[#C5A059]/20 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
-                    />
-                  </div>
-                </div>
-
                 <div>
-                  <label className="block text-xs font-medium text-neutral-400 mb-1.5">
-                    Detailed Inquiry / Proposal / Pitch *
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black mb-1.5 font-sans">
+                    Executive Briefing / Message *
                   </label>
                   <textarea
                     required
                     rows={4}
-                    placeholder="Provide details regarding your proposal, event registration request, or editorial pitch..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-[#C5A059]/20 text-xs text-[#FDFCF8] focus:outline-none focus:border-[#C5A059]"
+                    placeholder="Outline your partnership proposal, editorial inquiry, or summit accreditation request..."
+                    className="w-full px-3.5 py-2.5 bg-white border border-neutral-300 text-xs text-black focus:outline-none focus:border-black font-sans resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-[#DFC17B] via-[#C5A059] to-[#9E7D3B] text-black text-xs font-bold uppercase tracking-widest hover:opacity-95 hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] transition-all flex items-center justify-center gap-2 active:scale-[0.99]"
+                  className="w-full py-3.5 bg-black text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>{submitting ? "Transmitting Dossier..." : "Transmit Inquiry to Bureau"}</span>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>{submitting ? "Transmitting Dossier..." : "Dispatch Inquiry"}</span>
                 </button>
               </form>
             )}
+          </div>
+
+          {/* Right Column: Direct Bureau Communications */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="border border-neutral-200 bg-neutral-50 p-6 sm:p-7 space-y-4">
+              <h4 className="font-serif-luxury text-lg font-bold text-black uppercase tracking-wider">
+                Direct Bureau Lines
+              </h4>
+
+              <div className="space-y-3 font-sans text-xs text-neutral-700">
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-black shrink-0" />
+                  <div>
+                    <p className="font-bold text-black">Telephone Desk</p>
+                    <a href="tel:+12028768594" className="hover:underline text-neutral-600">
+                      +1 202-876-8594
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-black shrink-0" />
+                  <div>
+                    <p className="font-bold text-black">Direct Bureau Email</p>
+                    <a href="mailto:thenorthavenuemedia@gmail.com" className="hover:underline text-neutral-600">
+                      thenorthavenuemedia@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Globe className="w-4 h-4 text-black shrink-0" />
+                  <div>
+                    <p className="font-bold text-black">Global Bureau Headquarters</p>
+                    <p className="text-neutral-600">New York &bull; Paris &bull; Milan &bull; Tokyo</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Clock className="w-4 h-4 text-black shrink-0" />
+                  <div>
+                    <p className="font-bold text-black">Editorial Hours</p>
+                    <p className="text-neutral-600">24/7 Global Intelligence Bureau Dispatch</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="border border-neutral-200 bg-neutral-900 text-white p-6 sm:p-7 space-y-3">
+              <h4 className="font-serif-luxury text-lg font-bold text-white uppercase tracking-wider">
+                Partner With Us
+              </h4>
+              <p className="text-xs text-neutral-300 font-sans leading-relaxed">
+                Connect your brand with high-level executives, visionary creative directors, and industry leaders through bespoke intelligence reports and curated global summits.
+              </p>
+            </div>
           </div>
         </div>
       </div>

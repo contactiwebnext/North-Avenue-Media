@@ -29,11 +29,11 @@ export const ScrollToTop: React.FC = () => {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-[#121212]/90 backdrop-blur-md border border-[#C5A059]/40 text-[#FDFCF8] hover:text-black hover:bg-[#C5A059] shadow-xl hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] transition-all group hover:-translate-y-1 active:scale-95 font-sans"
+      className="fixed bottom-6 left-6 z-40 p-3 bg-black text-white hover:bg-neutral-800 shadow-xl transition-all group hover:-translate-y-0.5 font-sans"
       title="Scroll back to top"
       aria-label="Scroll to top"
     >
-      <ArrowUp className="w-5 h-5 group-hover:animate-bounce" />
+      <ArrowUp className="w-5 h-5" />
     </button>
   );
 };
